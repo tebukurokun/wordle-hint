@@ -10,7 +10,7 @@ export function LetterPanel({
   index: number;
   isYellow: boolean;
   isGreen: boolean;
-  handleLetterClick: (letterIndex: number) => void;
+  handleLetterClick?: (letterIndex: number) => void;
   children: string;
 }) {
   return (
@@ -21,10 +21,17 @@ export function LetterPanel({
         "bg-neutral-800",
         { "bg-yellow-500": isYellow },
         { "bg-lime-700": isGreen },
-        "my-1",
+        "mb-1",
+        "mt-2",
         "py-3"
       )}
-      onClick={() => handleLetterClick(index)}
+      onClick={
+        handleLetterClick != null
+          ? () => handleLetterClick(index)
+          : () => {
+              // do nothing
+            }
+      }
     >
       <p className={"text-2xl text-white text-center"}>{children}</p>
     </div>
