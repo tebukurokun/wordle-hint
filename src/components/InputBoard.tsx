@@ -100,13 +100,13 @@ export function InputBoard() {
   };
 
   return (
-    <div className="mx-2">
+    <div className="">
       <div>
         <div>
           {submittedLetterStates.map((states, index) => {
             return (
               <div
-                className="row flex flex-row space-x-2"
+                className="my-1 grid grid-cols-5 gap-1"
                 key={`index-${index}`}
               >
                 {states.map((s, i) => (
@@ -123,7 +123,7 @@ export function InputBoard() {
             );
           })}
         </div>
-        <div className="row flex flex-row space-x-2">
+        <div className="grid grid-cols-5 gap-1 justify-center min-h-50 ">
           {letterStates.map((s, i) => (
             <LetterPanel
               key={i}
@@ -137,13 +137,13 @@ export function InputBoard() {
           ))}
         </div>
       </div>
-      <div className="w-80 my-2 row flex flex-row space-x-1">
+      <div className="mt-5 grid grid-cols-5 gap-1">
         <InputGroup
           placeholder="5-letter word"
           large={true}
           maxLength={5}
           minLength={5}
-          className={"w-40 mx-auto"}
+          className={"col-start-2 col-end-5"}
           onChange={handleInputChange}
           value={inputValue}
           onKeyDown={handleInputKeydown}
@@ -152,13 +152,12 @@ export function InputBoard() {
         <Button
           rightIcon="arrow-right"
           intent="success"
-          text="Next"
+          text=""
           disabled={!isInputValid}
           onClick={goNext}
+          className={"col-span-1"}
         />
-      </div>
-      <div className="w-80 mt-20">
-        <Button icon="refresh" intent="danger" text="Reset" />
+        {/* <Button icon="refresh" intent="danger" className={"col-span-1 mt-10"} /> */}
       </div>
     </div>
   );

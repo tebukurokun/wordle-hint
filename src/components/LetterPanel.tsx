@@ -16,14 +16,12 @@ export function LetterPanel({
   return (
     <div
       className={classNames(
-        "w-16",
-        "h-16",
         "bg-neutral-800",
         { "bg-yellow-500": isYellow },
         { "bg-lime-700": isGreen },
-        "mb-1",
-        "mt-2",
-        "py-3"
+        "py-2",
+        "min-h-[3rem]",
+        "cursor-pointer"
       )}
       onClick={
         handleLetterClick != null
@@ -33,7 +31,7 @@ export function LetterPanel({
             }
       }
     >
-      <p className={"text-2xl text-white text-center"}>{children}</p>
+      <p className={"text-2xl text-white text-center font-bold"}>{children}</p>
     </div>
   );
 }
