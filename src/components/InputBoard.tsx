@@ -2,6 +2,7 @@ import { InputGroup } from "@blueprintjs/core";
 import { useEffect, useRef, useState } from "react";
 import { LetterPanel } from "./LetterPanel";
 import { Button } from "@blueprintjs/core";
+import { letterColorActions, letterColorSelecters } from "../states";
 
 interface LetterState {
   letter: string;
@@ -10,6 +11,9 @@ interface LetterState {
 }
 
 export function InputBoard() {
+  const letterColorState = letterColorSelecters.useLetterColor();
+  const setLetterColorState = letterColorActions.useSetLetterColor();
+
   const [inputValue, setInputValue] = useState("");
   const [letterStates, setLetterStates] = useState<LetterState[]>([
     { letter: "", isYellow: false, isGreen: false },
@@ -82,12 +86,37 @@ export function InputBoard() {
     if (!isInputValid) {
       return;
     }
-
     // update submittedLetterStates
     const newSubmittedLetterStates = [...submittedLetterStates];
     newSubmittedLetterStates.push(letterStates);
     setSubmittedLetterStates(newSubmittedLetterStates);
 
+    console.debug(letterColorState.grayLetters);
+    // push to state
+    // eslint-disable-next-line prefer-const
+    const newLetterColorState = {
+      grayLetters: [...letterColorState.grayLetters],
+      yellowLetters: [...letterColorState.yellowLetters],
+      greenLetters: [...letterColorState.greenLetters],
+    };
+    letterStates.map((s, i) => {
+      if (s.isGreen) {
+        newLetterColorState.greenLetters.push({
+          letter: s.letter,
+          index: i,
+        });
+      } else if (s.isYellow) {
+        newLetterColorState.yellowLetters.push({
+          letter: s.letter,
+          index: i,
+        });
+      } else {
+        newLetterColorState.grayLetters.push(s.letter);
+      }
+    });
+    setLetterColorState(newLetterColorState);
+
+    // reset letterStates
     setLetterStates([
       { letter: "", isYellow: false, isGreen: false },
       { letter: "", isYellow: false, isGreen: false },

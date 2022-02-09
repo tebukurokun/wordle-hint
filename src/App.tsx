@@ -1,13 +1,10 @@
-import { useState } from "react";
 import "./App.css";
-import { Button, H1, H2, TextArea } from "@blueprintjs/core";
+import { H1, H2 } from "@blueprintjs/core";
 import { InputBoard } from "./components/InputBoard";
 import { RecoilRoot } from "recoil";
-import { WordList } from "./util/WordList";
+import { WordListArea } from "./components/WordListArea";
 
 function App() {
-  console.log(WordList[0]);
-  const [wordList, setWordList] = useState(WordList);
   return (
     <RecoilRoot>
       <div className="App bg-slate-900 ">
@@ -19,14 +16,7 @@ function App() {
             </div>
             <div className="my-5 container px-5">
               <H2 className={"text-white"}>word candidates</H2>
-              <div id="wordListArea" className="">
-                <TextArea
-                  value={wordList.join("\n")}
-                  readOnly
-                  rows={15}
-                  fill={true}
-                ></TextArea>
-              </div>
+              <WordListArea />
             </div>
           </div>
         </div>
