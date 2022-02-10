@@ -126,6 +126,7 @@ export function InputBoard() {
     ]);
 
     setInputValue("");
+    setIsInputValid(false);
   };
 
   return (
