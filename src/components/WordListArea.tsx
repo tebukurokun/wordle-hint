@@ -1,4 +1,3 @@
-import { TextArea } from "@blueprintjs/core";
 import { useEffect, useState } from "react";
 import { letterColorSelecters } from "../states";
 import { WordList } from "../util/WordList";
@@ -41,13 +40,12 @@ export const WordListArea = () => {
   }, [letterColorState]);
 
   return (
-    <div id="wordListArea" className="">
-      <TextArea
+    <div id="wordListArea" className="h-[40vh]">
+      <textarea
+        className={"h-full w-full px-2 rounded-md"}
         value={wordList.join("\n")}
         readOnly
-        rows={15}
-        fill={true}
-      ></TextArea>
+      ></textarea>
     </div>
   );
 };

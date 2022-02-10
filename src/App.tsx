@@ -8,13 +8,22 @@ function App() {
   return (
     <RecoilRoot>
       <div className="App bg-slate-900 ">
-        <div className={"h-screen py-10 max-w-screen-md"}>
-          <H1 className={"text-white"}>Wordle Hint</H1>
+        <div className={"h-screen py-5 max-w-screen-md"}>
+          <H1>
+            <span
+              className={"text-white cursor-pointer"}
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
+              Wordle Hint
+            </span>
+          </H1>
           <div className="grid grid-cols-1">
             <div className={"my-5 container px-10"}>
               <InputBoard />
             </div>
-            <div className="my-5 container px-5">
+            <div className="mt-5 container px-5">
               <H2 className={"text-white"}>word candidates</H2>
               <WordListArea />
             </div>
