@@ -7,8 +7,8 @@ import { WordListArea } from "./components/WordListArea";
 function App() {
   return (
     <RecoilRoot>
-      <div className="App bg-slate-900 text-white">
-        <div className={"h-screen p-5 max-w-screen-md"}>
+      <div className="App bg-slate-900 text-white h-screen">
+        <div className={"p-5 max-w-screen-md relative h-full"}>
           <H1 className={"mb-1"}>
             <span
               className={"text-white cursor-pointer"}
@@ -38,6 +38,15 @@ function App() {
               <H2 className={"text-white"}>word candidates</H2>
               <WordListArea />
             </div>
+          </div>
+          <div id="appFooter" className={"absolute bottom-0 right-0"}>
+            <a
+              href="https://github.com/tebukurokun/wordle-hint"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <i className="fab fa-github-square text-xl"></i>
+            </a>
           </div>
         </div>
       </div>
