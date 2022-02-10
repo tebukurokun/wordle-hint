@@ -34,7 +34,7 @@ export function InputBoard() {
     if (input.current) {
       input.current.focus();
     }
-  }, []);
+  }, [letterStates]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const word = event.target.value.toUpperCase();
