@@ -7,9 +7,9 @@ import { WordListArea } from "./components/WordListArea";
 function App() {
   return (
     <RecoilRoot>
-      <div className="App bg-slate-900 ">
-        <div className={"h-screen py-5 max-w-screen-md"}>
-          <H1>
+      <div className="App bg-slate-900 text-white">
+        <div className={"h-screen p-5 max-w-screen-md"}>
+          <H1 className={"mb-1"}>
             <span
               className={"text-white cursor-pointer"}
               onClick={() => {
@@ -19,8 +19,19 @@ function App() {
               Wordle Hint
             </span>
           </H1>
-          <div className="grid grid-cols-1">
-            <div className={"my-5 container px-10"}>
+          <div>
+            <p>
+              Get clues to solve{" "}
+              <a
+                className="font-bold text-lg text-green-500	"
+                href="https://www.powerlanguage.co.uk/wordle/"
+              >
+                Wordle
+              </a>
+            </p>
+          </div>
+          <div className="grid grid-cols-1 mt-5">
+            <div className={"mb-5 container px-10"}>
               <InputBoard />
             </div>
             <div className="mt-5 container px-5">

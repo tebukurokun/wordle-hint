@@ -42,7 +42,7 @@ export const WordListArea = () => {
   return (
     <div id="wordListArea" className="h-[40vh]">
       <textarea
-        className={"h-full w-full px-2 rounded-md"}
+        className={"h-full w-full px-2 rounded-md text-black"}
         value={wordList.join("\n")}
         readOnly
       ></textarea>
