@@ -1,6 +1,7 @@
 {
   "name": "wordle-hint",
   "version": "0.0.0",
+  "homepage": "./",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
