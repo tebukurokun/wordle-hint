@@ -91,9 +91,7 @@ export function InputBoard() {
     newSubmittedLetterStates.push(letterStates);
     setSubmittedLetterStates(newSubmittedLetterStates);
 
-    console.debug(letterColorState.grayLetters);
     // push to state
-    // eslint-disable-next-line prefer-const
     const newLetterColorState = {
       grayLetters: [...letterColorState.grayLetters],
       yellowLetters: [...letterColorState.yellowLetters],
@@ -187,7 +185,6 @@ export function InputBoard() {
           onClick={goNext}
           className={"col-span-1"}
         />
-        {/* <Button icon="refresh" intent="danger" className={"col-span-1 mt-10"} /> */}
       </div>
     </div>
   );
