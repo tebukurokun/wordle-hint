@@ -1,5 +1,5 @@
 import "./App.css";
-import { H1, H2 } from "@blueprintjs/core";
+import { H1, H3 } from "@blueprintjs/core";
 import { InputBoard } from "./components/InputBoard";
 import { RecoilRoot } from "recoil";
 import { WordListArea } from "./components/WordListArea";
@@ -35,7 +35,9 @@ function App() {
               <InputBoard />
             </div>
             <div className="mt-5 container px-5">
-              <H2 className={"text-white"}>word candidates</H2>
+              <H3 className={"text-white"}>
+                word candidates(sorted by recommendation)
+              </H3>
               <WordListArea />
             </div>
           </div>
