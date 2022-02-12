@@ -3,8 +3,13 @@ import { H1, H3 } from "@blueprintjs/core";
 import { InputBoard } from "./components/InputBoard";
 import { RecoilRoot } from "recoil";
 import { WordListArea } from "./components/WordListArea";
+import { useEffect } from "react";
+import { version } from "../package.json";
 
 function App() {
+  useEffect(() => {
+    console.info(`Wordle Hint v${version}`);
+  }, []);
   return (
     <RecoilRoot>
       <div className="App bg-slate-900 text-white h-screen">
