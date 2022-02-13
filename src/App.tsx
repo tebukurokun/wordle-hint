@@ -32,6 +32,8 @@ function App() {
               <a
                 className="font-bold text-lg text-green-500	"
                 href="https://www.powerlanguage.co.uk/wordle/"
+                target="_blank"
+                rel="noreferrer"
               >
                 Wordle
               </a>
