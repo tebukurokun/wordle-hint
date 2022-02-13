@@ -5,6 +5,8 @@ import { RecoilRoot } from "recoil";
 import { WordListArea } from "./components/WordListArea";
 import { useEffect } from "react";
 import { version } from "../package.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithubSquare } from "@fortawesome/free-brands-svg-icons";
 
 function App() {
   useEffect(() => {
@@ -52,7 +54,7 @@ function App() {
               target="_blank"
               rel="noreferrer"
             >
-              <i className="fab fa-github-square text-xl"></i>
+              <FontAwesomeIcon icon={faGithubSquare} size="lg" />
             </a>
           </div>
         </div>
