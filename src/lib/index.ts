@@ -1,0 +1,1 @@
+export { filterWordList } from "./filterWordList";
