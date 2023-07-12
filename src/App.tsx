@@ -31,7 +31,7 @@ function App() {
               Get clues to solve{" "}
               <a
                 className="font-bold text-lg text-green-500	"
-                href="https://www.powerlanguage.co.uk/wordle/"
+                href="https://www.nytimes.com/games/wordle/index.html"
                 target="_blank"
                 rel="noreferrer"
               >

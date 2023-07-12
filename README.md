@@ -1,6 +1,6 @@
 # wordle-hint
 
-[Wordle](https://www.powerlanguage.co.uk/wordle/) hint site
+[Wordle](https://www.nytimes.com/games/wordle/index.html) hint site
 
 published at: <https://tebukurokun.github.io/wordle-hint/>
 
