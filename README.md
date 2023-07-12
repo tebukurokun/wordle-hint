@@ -32,7 +32,7 @@ This software is released under the MIT License, see LICENSE.txt.
 
 ## References
 
-- [Wordle](https://www.powerlanguage.co.uk/wordle/)
+- [Wordle](https://www.nytimes.com/games/wordle/index.html)
 - [Letter frequency (Wikipedia)](https://en.wikipedia.org/wiki/Letter_frequency)
 - [tailwindcss](https://tailwindcss.com/)
 - [Blueprint](https://blueprintjs.com/)
