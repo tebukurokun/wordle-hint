@@ -2,7 +2,7 @@
 
 [Wordle](https://www.nytimes.com/games/wordle/index.html) hint site
 
-published at: <https://tebukurokun.github.io/wordle-hint/>
+published at: <https://wordle-hint.netlify.app/>
 
 ## Dependencies
 
