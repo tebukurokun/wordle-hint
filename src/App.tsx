@@ -1,12 +1,10 @@
-import "./App.css";
 import { H1, H3 } from "@blueprintjs/core";
-import { InputBoard } from "./components/InputBoard";
-import { RecoilRoot } from "recoil";
-import { WordListArea } from "./components/WordListArea";
 import { useEffect } from "react";
+import { RecoilRoot } from "recoil";
 import { version } from "../package.json";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithubSquare } from "@fortawesome/free-brands-svg-icons";
+import "./App.css";
+import { InputBoard } from "./components/InputBoard";
+import { WordListArea } from "./components/WordListArea";
 
 function App() {
   useEffect(() => {
@@ -50,15 +48,7 @@ function App() {
               <WordListArea />
             </div>
           </div>
-          <div id="appFooter" className={"absolute bottom-0 right-0"}>
-            <a
-              href="https://github.com/tebukurokun/wordle-hint"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FontAwesomeIcon icon={faGithubSquare} size="lg" />
-            </a>
-          </div>
+          <div id="appFooter" className={"absolute bottom-0 right-0"}></div>
         </div>
       </div>
     </RecoilRoot>
