@@ -16,20 +16,16 @@ export function LetterPanel({
   return (
     <div
       className={classNames(
-        "bg-neutral-800",
-        { "bg-yellow-500": isYellow },
-        { "bg-lime-700": isGreen },
+        {
+          "bg-neutral-800": !isYellow && !isGreen,
+          "bg-amber-400": isYellow,
+          "bg-emerald-600": isGreen,
+        },
         "py-2",
         "min-h-[3rem]",
         "cursor-pointer"
       )}
-      onClick={
-        handleLetterClick != null
-          ? () => handleLetterClick(index)
-          : () => {
-              // do nothing
-            }
-      }
+      onClick={() => handleLetterClick?.(index)}
     >
       <p className={"text-2xl text-white text-center font-bold"}>{children}</p>
     </div>

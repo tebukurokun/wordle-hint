@@ -1,8 +1,7 @@
-import { InputGroup } from "@blueprintjs/core";
+import { Button, InputGroup } from "@blueprintjs/core";
 import { useEffect, useRef, useState } from "react";
-import { LetterPanel } from "./LetterPanel";
-import { Button } from "@blueprintjs/core";
 import { letterColorActions, letterColorSelecters } from "../states";
+import { LetterPanel } from "./LetterPanel";
 
 interface LetterState {
   letter: string;
@@ -61,17 +60,19 @@ export function InputBoard() {
       isYellow: letterState.isYellow
         ? false
         : letterState.isGreen
-        ? false
-        : true,
+          ? false
+          : true,
       isGreen: letterState.isGreen
         ? false
         : letterState.isYellow
-        ? true
-        : false,
+          ? true
+          : false,
     };
 
     const newLetterStates = [...letterStates];
     newLetterStates[index] = newLetterState;
+
+    console.log(newLetterState);
 
     setLetterStates(newLetterStates);
   };
