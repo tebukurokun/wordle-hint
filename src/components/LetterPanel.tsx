@@ -16,8 +16,11 @@ export function LetterPanel({
   return (
     <div
       className={classNames(
-        "bg-neutral-800",
-        { "bg-amber-400": isYellow, "bg-emerald-600": isGreen },
+        {
+          "bg-neutral-800": !isYellow && !isGreen,
+          "bg-amber-400": isYellow,
+          "bg-emerald-600": isGreen,
+        },
         "py-2",
         "min-h-[3rem]",
         "cursor-pointer"
