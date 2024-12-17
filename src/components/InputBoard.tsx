@@ -72,8 +72,6 @@ export function InputBoard() {
     const newLetterStates = [...letterStates];
     newLetterStates[index] = newLetterState;
 
-    console.log(newLetterState);
-
     setLetterStates(newLetterStates);
   };
 
