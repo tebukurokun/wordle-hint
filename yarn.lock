@@ -207,6 +207,15 @@
     classnames "^2.3.1"
     tslib "~2.6.2"
 
+"@blueprintjs/icons@^5.23.0":
+  version "5.23.0"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/icons/-/icons-5.23.0.tgz#c01dc80fbadb4dfef20d34abdee14a23b6f5d00b"
+  integrity sha512-yxQ+A0V79/UsyIw4XYuEvaFqr3FIaRlp79rKh+ZdHLafedqPfp4LO6xtF6EziWFCvuHOTJdFCfSC8AoQeSENMw==
+  dependencies:
+    change-case "^4.1.2"
+    classnames "^2.3.1"
+    tslib "~2.6.2"
+
 "@esbuild/aix-ppc64@0.24.0":
   version "0.24.0"
   resolved "https://registry.yarnpkg.com/@esbuild/aix-ppc64/-/aix-ppc64-0.24.0.tgz#b57697945b50e99007b4c2521507dc613d4a648c"
