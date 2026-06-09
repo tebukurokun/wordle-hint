@@ -177,6 +177,20 @@ export function InputBoard() {
           ))}
         </div>
       </div>
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-400">
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block h-3 w-3 rounded-sm bg-neutral-800 ring-1 ring-slate-600" />
+          not in word
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block h-3 w-3 rounded-sm bg-amber-400" />
+          wrong spot
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="inline-block h-3 w-3 rounded-sm bg-emerald-600" />
+          correct spot
+        </span>
+      </div>
       <div className="mt-5 grid grid-cols-5 gap-2">
         <input
           ref={input}
@@ -194,7 +208,7 @@ export function InputBoard() {
           aria-label="submit word"
           disabled={!isInputValid}
           onClick={goNext}
-          className="col-span-1 flex items-center justify-center rounded-lg bg-emerald-600 text-white transition-colors hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-40"
+          className="col-span-1 flex cursor-pointer items-center justify-center rounded-lg bg-emerald-600 text-white transition-colors hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-40"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
