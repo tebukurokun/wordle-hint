@@ -1,7 +1,7 @@
-import { atom, selector, useRecoilValue, useSetRecoilState } from "recoil";
 import { useCallback } from "react";
+import { atom, selector, useRecoilValue, useSetRecoilState } from "recoil";
+import type { LetterIndex } from "../interfaces";
 import { RecoilAtomKeys, RecoilSelectorKeys } from "./RecoilKeys";
-import { LetterIndex } from "../interfaces";
 
 interface LetterColorState {
   grayLetters: string[];
@@ -43,7 +43,7 @@ export const letterColorActions: LetterColorActions = {
 
     return useCallback(
       (letterColor: LetterColorState) => setState(() => letterColor),
-      []
+      [setState],
     );
   },
 };

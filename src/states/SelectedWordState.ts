@@ -1,5 +1,5 @@
-import { atom, selector, useRecoilValue, useSetRecoilState } from "recoil";
 import { useCallback } from "react";
+import { atom, selector, useRecoilValue, useSetRecoilState } from "recoil";
 import { RecoilAtomKeys, RecoilSelectorKeys } from "./RecoilKeys";
 
 const selectedWordState = atom<string>({
@@ -30,6 +30,6 @@ export const selectedWordActions: SelectedWordActions = {
   useSetSelectedWord: () => {
     const setState = useSetRecoilState(selectedWordState);
 
-    return useCallback((word: string) => setState(() => word), []);
+    return useCallback((word: string) => setState(() => word), [setState]);
   },
 };

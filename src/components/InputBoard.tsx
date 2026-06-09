@@ -39,13 +39,13 @@ export function InputBoard() {
     if (input.current) {
       input.current.focus();
     }
-  }, [letterStates]);
+  }, []);
 
   const applyWord = (rawWord: string) => {
     const word = rawWord.toUpperCase();
     setInputValue(word);
 
-    if (word.length == 5 && word.match(/^[A-Za-z]{5}$/)) {
+    if (word.length === 5 && word.match(/^[A-Za-z]{5}$/)) {
       setLetterStates([
         { letter: word[0], isYellow: false, isGreen: false },
         { letter: word[1], isYellow: false, isGreen: false },
@@ -64,28 +64,20 @@ export function InputBoard() {
   };
 
   // 候補リストの単語がクリックされたら入力欄へ反映する
+  // biome-ignore lint/correctness/useExhaustiveDependencies: applyWord/setSelectedWord are stable; only react to selectedWord changes
   useEffect(() => {
     if (selectedWord) {
       applyWord(selectedWord);
       setSelectedWord("");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedWord]);
 
   const handleLetterClick = (index: number) => {
     const letterState = letterStates[index];
     const newLetterState = {
       ...letterState,
-      isYellow: letterState.isYellow
-        ? false
-        : letterState.isGreen
-          ? false
-          : true,
-      isGreen: letterState.isGreen
-        ? false
-        : letterState.isYellow
-          ? true
-          : false,
+      isYellow: letterState.isYellow ? false : !letterState.isGreen,
+      isGreen: letterState.isGreen ? false : !!letterState.isYellow,
     };
 
     const newLetterStates = [...letterStates];
@@ -95,7 +87,7 @@ export function InputBoard() {
   };
 
   const handleInputKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key == "Enter") {
+    if (event.key === "Enter") {
       goNext();
     }
   };
@@ -115,7 +107,7 @@ export function InputBoard() {
       yellowLetters: [...letterColorState.yellowLetters],
       greenLetters: [...letterColorState.greenLetters],
     };
-    letterStates.map((s, i) => {
+    letterStates.forEach((s, i) => {
       if (s.isGreen) {
         newLetterColorState.greenLetters.push({
           letter: s.letter,
@@ -153,11 +145,12 @@ export function InputBoard() {
             return (
               <div
                 className="my-1 grid grid-cols-5 gap-1"
+                // biome-ignore lint/suspicious/noArrayIndexKey: append-only submission history, never reordered
                 key={`index-${index}`}
               >
                 {states.map((s, i) => (
                   <LetterPanel
-                    key={index.toString() + "-" + i.toString()}
+                    key={`${index.toString()}-${i.toString()}`}
                     index={i}
                     isYellow={s.isYellow}
                     isGreen={s.isGreen}
@@ -172,6 +165,7 @@ export function InputBoard() {
         <div className="grid grid-cols-5 gap-1 justify-center">
           {letterStates.map((s, i) => (
             <LetterPanel
+              // biome-ignore lint/suspicious/noArrayIndexKey: fixed 5-letter row, never reordered
               key={i}
               index={i}
               isYellow={s.isYellow}
@@ -209,7 +203,10 @@ export function InputBoard() {
             strokeWidth={2}
             stroke="currentColor"
             className="h-5 w-5"
+            role="img"
+            aria-label="submit"
           >
+            <title>submit</title>
             <path
               strokeLinecap="round"
               strokeLinejoin="round"

@@ -13,7 +13,7 @@ export const WordListArea = () => {
       WordList,
       letterColorState.grayLetters,
       letterColorState.yellowLetters,
-      letterColorState.greenLetters
+      letterColorState.greenLetters,
     );
 
     console.debug(newWordList.length);
