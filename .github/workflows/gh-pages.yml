@@ -7,33 +7,25 @@ on:
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: setup node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
           node-version: "22"
-
-      # npm install の際にキャッシュを使うよう設定
-      - name: Cache dependencies
-        uses: actions/cache@v1
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          cache: npm
 
       - name: install
-        run: yarn install --immutable
+        run: npm ci
 
       - name: build
-        run: yarn build
+        run: npm run build
         env:
           GITHUB_PAGES: true
 
-      # gh-pagesブランチにoutディレクトリの中身をプッシュする
+      # gh-pagesブランチにdistディレクトリの中身をプッシュする
       # gh-pagesブランチは自動的に作成される
       - name: deploy
         uses: peaceiris/actions-gh-pages@v3
