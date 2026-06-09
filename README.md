@@ -4,26 +4,31 @@
 
 published at: <https://wordle-hint.netlify.app/>
 
-## Dependencies
+Type a guess, click each tile to mark its Wordle color (gray / yellow / green),
+and the candidate list filters down to the words that still fit — ordered by
+recommendation (letter frequency). Click any candidate to send it back into the
+input.
 
-[package.json](package.json)
+## Tech stack
+
+- [Vite](https://vitejs.dev/) + [React](https://react.dev/) + TypeScript
+- [Recoil](https://recoiljs.org/) for state
+- [Tailwind CSS](https://tailwindcss.com/) for styling
+- [Biome](https://biomejs.dev/) for lint & format
 
 ## Installation
 
-``` bash
-yarn install
+```bash
+npm install
 ```
 
 ## Running
 
-``` bash
-yarn dev
-```
-
-## Building
-
-``` bash
-yarn build
+```bash
+npm run dev      # dev server
+npm run build    # production build -> dist/
+npm run preview  # serve the production build
+npm run check    # Biome lint + format check
 ```
 
 ## License
@@ -35,4 +40,3 @@ This software is released under the MIT License, see LICENSE.txt.
 - [Wordle](https://www.nytimes.com/games/wordle/index.html)
 - [Letter frequency (Wikipedia)](https://en.wikipedia.org/wiki/Letter_frequency)
 - [tailwindcss](https://tailwindcss.com/)
-- [Blueprint](https://blueprintjs.com/)
