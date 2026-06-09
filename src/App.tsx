@@ -13,7 +13,7 @@ function App() {
   return (
     <RecoilRoot>
       <div className="App bg-slate-900 text-white h-screen">
-        <div className={"p-5 max-w-screen-md relative h-full"}>
+        <div className={"p-5 max-w-screen-md mx-auto relative h-full"}>
           <H1 className={"mb-1"}>
             <span
               className={"text-white cursor-pointer"}

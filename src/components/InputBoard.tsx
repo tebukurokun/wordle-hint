@@ -150,7 +150,7 @@ export function InputBoard() {
             );
           })}
         </div>
-        <div className="grid grid-cols-5 gap-1 justify-center min-h-50 ">
+        <div className="grid grid-cols-5 gap-1 justify-center">
           {letterStates.map((s, i) => (
             <LetterPanel
               key={i}
