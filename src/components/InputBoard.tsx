@@ -1,4 +1,3 @@
-import { Button, InputGroup } from "@blueprintjs/core";
 import { useEffect, useRef, useState } from "react";
 import {
   letterColorActions,
@@ -184,26 +183,40 @@ export function InputBoard() {
           ))}
         </div>
       </div>
-      <div className="mt-5 grid grid-cols-5 gap-1">
-        <InputGroup
+      <div className="mt-5 grid grid-cols-5 gap-2">
+        <input
+          ref={input}
+          type="text"
           placeholder="5-letter word"
-          large={true}
           maxLength={5}
           minLength={5}
-          className={"col-start-2 col-end-5"}
-          onChange={handleInputChange}
           value={inputValue}
+          onChange={handleInputChange}
           onKeyDown={handleInputKeydown}
-          inputRef={input}
+          className="col-start-2 col-end-5 rounded-lg border border-slate-600 bg-slate-800 px-3 py-2 text-center text-lg font-semibold uppercase tracking-[0.3em] text-white placeholder:text-base placeholder:font-normal placeholder:normal-case placeholder:tracking-normal placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/50"
         />
-        <Button
-          rightIcon="arrow-right"
-          intent="success"
-          text=""
+        <button
+          type="button"
+          aria-label="submit word"
           disabled={!isInputValid}
           onClick={goNext}
-          className={"col-span-1"}
-        />
+          className="col-span-1 flex items-center justify-center rounded-lg bg-emerald-600 text-white transition-colors hover:bg-emerald-500 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="h-5 w-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+            />
+          </svg>
+        </button>
       </div>
     </div>
   );

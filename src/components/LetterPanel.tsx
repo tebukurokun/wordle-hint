@@ -23,6 +23,8 @@ export function LetterPanel({
         },
         "py-2",
         "min-h-[3rem]",
+        "rounded-md",
+        "transition-colors",
         "cursor-pointer"
       )}
       onClick={() => handleLetterClick?.(index)}

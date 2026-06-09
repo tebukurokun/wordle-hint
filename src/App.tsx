@@ -1,4 +1,3 @@
-import { H1, H3 } from "@blueprintjs/core";
 import { useEffect } from "react";
 import { RecoilRoot } from "recoil";
 import { version } from "../package.json";
@@ -14,21 +13,21 @@ function App() {
     <RecoilRoot>
       <div className="App bg-slate-900 text-white h-screen">
         <div className={"p-5 max-w-screen-md mx-auto relative h-full"}>
-          <H1 className={"mb-1"}>
+          <h1 className="mb-1 text-3xl font-extrabold tracking-tight sm:text-4xl">
             <span
-              className={"text-white cursor-pointer"}
+              className="cursor-pointer text-white"
               onClick={() => {
                 window.location.reload();
               }}
             >
               Wordle Hint
             </span>
-          </H1>
+          </h1>
           <div>
-            <p>
+            <p className="text-slate-300">
               Get clues to solve{" "}
               <a
-                className="font-bold text-lg text-green-500	"
+                className="font-bold text-lg text-green-400 hover:text-green-300"
                 href="https://www.nytimes.com/games/wordle/index.html"
                 target="_blank"
                 rel="noreferrer"
@@ -42,9 +41,12 @@ function App() {
               <InputBoard />
             </div>
             <div className="mt-5 container px-5">
-              <H3 className={"text-white"}>
-                word candidates(sorted by recommendation)
-              </H3>
+              <h3 className="mb-2 text-lg font-semibold text-white">
+                word candidates
+                <span className="ml-1 text-sm font-normal text-slate-400">
+                  (sorted by recommendation)
+                </span>
+              </h3>
               <WordListArea />
             </div>
           </div>
