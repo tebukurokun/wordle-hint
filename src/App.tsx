@@ -61,12 +61,22 @@ function App() {
               <InputBoard />
             </div>
             <div className="mt-5 container px-5">
-              <h3 className="mb-2 text-lg font-semibold text-white">
+              <h3 className="mb-1 text-lg font-semibold text-white">
                 word candidates
                 <span className="ml-1 text-sm font-normal text-slate-400">
                   (sorted by recommendation)
                 </span>
               </h3>
+              <p className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400">
+                <span className="flex items-center gap-1.5">
+                  <span className="inline-block h-3 w-3 rounded-sm bg-emerald-200 ring-1 ring-emerald-400" />
+                  possible answer
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <span className="inline-block h-3 w-3 rounded-sm bg-slate-200" />
+                  valid guess
+                </span>
+              </p>
               <WordListArea />
             </div>
           </div>
