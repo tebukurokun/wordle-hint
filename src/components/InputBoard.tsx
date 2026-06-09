@@ -1,6 +1,11 @@
 import { Button, InputGroup } from "@blueprintjs/core";
 import { useEffect, useRef, useState } from "react";
-import { letterColorActions, letterColorSelecters } from "../states";
+import {
+  letterColorActions,
+  letterColorSelecters,
+  selectedWordActions,
+  selectedWordSelecters,
+} from "../states";
 import { LetterPanel } from "./LetterPanel";
 
 interface LetterState {
@@ -12,6 +17,8 @@ interface LetterState {
 export function InputBoard() {
   const letterColorState = letterColorSelecters.useLetterColor();
   const setLetterColorState = letterColorActions.useSetLetterColor();
+  const selectedWord = selectedWordSelecters.useSelectedWord();
+  const setSelectedWord = selectedWordActions.useSetSelectedWord();
 
   const [inputValue, setInputValue] = useState("");
   const [letterStates, setLetterStates] = useState<LetterState[]>([
@@ -35,8 +42,8 @@ export function InputBoard() {
     }
   }, [letterStates]);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const word = event.target.value.toUpperCase();
+  const applyWord = (rawWord: string) => {
+    const word = rawWord.toUpperCase();
     setInputValue(word);
 
     if (word.length == 5 && word.match(/^[A-Za-z]{5}$/)) {
@@ -52,6 +59,19 @@ export function InputBoard() {
       setIsInputValid(false);
     }
   };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    applyWord(event.target.value);
+  };
+
+  // 候補リストの単語がクリックされたら入力欄へ反映する
+  useEffect(() => {
+    if (selectedWord) {
+      applyWord(selectedWord);
+      setSelectedWord("");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedWord]);
 
   const handleLetterClick = (index: number) => {
     const letterState = letterStates[index];
