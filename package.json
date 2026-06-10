@@ -13,9 +13,9 @@
   "dependencies": {
     "@types/node": "^25.9.2",
     "classnames": "^2.5.1",
+    "jotai": "^2.20.0",
     "react": "^18",
-    "react-dom": "^18",
-    "recoil": "^0.7.7"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.16",

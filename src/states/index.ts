@@ -1,5 +1,2 @@
-export { letterColorActions, letterColorSelecters } from "./LetterColorState";
-export {
-  selectedWordActions,
-  selectedWordSelecters,
-} from "./SelectedWordState";
+export { type LetterColorState, letterColorAtom } from "./LetterColorState";
+export { selectedWordAtom } from "./SelectedWordState";

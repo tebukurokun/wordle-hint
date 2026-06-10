@@ -1,10 +1,6 @@
+import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
-import {
-  letterColorActions,
-  letterColorSelecters,
-  selectedWordActions,
-  selectedWordSelecters,
-} from "../states";
+import { letterColorAtom, selectedWordAtom } from "../states";
 import { LetterPanel } from "./LetterPanel";
 
 interface LetterState {
@@ -14,10 +10,10 @@ interface LetterState {
 }
 
 export function InputBoard() {
-  const letterColorState = letterColorSelecters.useLetterColor();
-  const setLetterColorState = letterColorActions.useSetLetterColor();
-  const selectedWord = selectedWordSelecters.useSelectedWord();
-  const setSelectedWord = selectedWordActions.useSetSelectedWord();
+  const letterColorState = useAtomValue(letterColorAtom);
+  const setLetterColorState = useSetAtom(letterColorAtom);
+  const selectedWord = useAtomValue(selectedWordAtom);
+  const setSelectedWord = useSetAtom(selectedWordAtom);
 
   const [inputValue, setInputValue] = useState("");
   const [letterStates, setLetterStates] = useState<LetterState[]>([

@@ -12,7 +12,7 @@ input.
 ## Tech stack
 
 - [Vite](https://vitejs.dev/) + [React](https://react.dev/) + TypeScript
-- [Recoil](https://recoiljs.org/) for state
+- [Jotai](https://jotai.org/) for state
 - [Tailwind CSS](https://tailwindcss.com/) for styling
 - [Biome](https://biomejs.dev/) for lint & format
 

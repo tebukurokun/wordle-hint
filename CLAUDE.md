@@ -18,9 +18,9 @@ There is no test framework in this project.
 
 ## Architecture
 
-A single-page Wordle hint tool: Vite + React 18 + TypeScript, state via Recoil, styling via Tailwind CSS v4. The whole app is one screen (`App.tsx`) with two interactive areas.
+A single-page Wordle hint tool: Vite + React 18 + TypeScript, state via Jotai, styling via Tailwind CSS v4. The whole app is one screen (`App.tsx`) with two interactive areas.
 
-**Core data flow.** The user types a 5-letter guess, clicks each tile to mark its Wordle color, then submits. Submitting accumulates color constraints into Recoil state; the candidate list re-filters live against those constraints.
+**Core data flow.** The user types a 5-letter guess, clicks each tile to mark its Wordle color, then submits. Submitting accumulates color constraints into Jotai state; the candidate list re-filters live against those constraints.
 
 - `src/util/WordList.ts` — the candidate pool: the **official Wordle valid-guess list** (12,972 lowercase 5-letter words = the 2,315 answers + 10,657 allowed-only guesses), **pre-sorted by recommendation**. This static ordering is the entire "sorted by recommendation" feature: filtering preserves array order, so no runtime ranking happens. `src/util/wordlist.txt` is the same list as plain text (raw source, not imported).
 - `src/util/AnswerList.ts` — the 2,315 words that can actually be the answer. `WordListArea` builds a `Set` from it to highlight likely answers (green chips) vs. plain valid guesses.
@@ -28,14 +28,14 @@ A single-page Wordle hint tool: Vite + React 18 + TypeScript, state via Recoil, 
 - `src/lib/filterWordList.ts` — the only runtime algorithm. Given gray/yellow/green letters it returns the surviving words. Gray = letter absent (but ignored if the same letter is also yellow/green elsewhere), yellow = letter present but **not** at that index, green = letter present **at** that index. All comparisons lowercase the letter because the word list is lowercase while the UI works in uppercase.
 - `LetterIndex { letter, index }` (`src/interfaces`) carries position info for yellow/green letters.
 
-**State (Recoil).** Each state lives in its own file under `src/states/` and follows the same pattern: an `atom`, a read hook bundle `xxxSelecters` (value via a `selector`), and a write hook bundle `xxxActions` (setter wrapped in `useCallback`). All are re-exported from `src/states/index.ts`; every atom/selector key is registered in `RecoilKeys.ts` (keys must be unique).
-- `letterColorState` — accumulated `{ grayLetters, yellowLetters, greenLetters }` across all submissions. Written by `InputBoard` on submit, read by `WordListArea`.
-- `selectedWordState` — bridges the two areas: clicking a candidate writes the word here; `InputBoard` watches it and fills the input, then resets it to `""` so the same word can be re-clicked.
+**State (Jotai).** Each state is a plain `atom` in its own file under `src/states/`, re-exported from `src/states/index.ts`. No keys, no Provider — components read with `useAtomValue(...)` and write with `useSetAtom(...)` against the default store. (Migrated from Recoil; the old `xxxSelecters`/`xxxActions` hook bundles and `RecoilKeys.ts` are gone.)
+- `letterColorAtom` — accumulated `{ grayLetters, yellowLetters, greenLetters }` across all submissions. Written by `InputBoard` on submit, read by `WordListArea`.
+- `selectedWordAtom` — bridges the two areas: clicking a candidate writes the word here; `InputBoard` watches it and fills the input, then resets it to `""` so the same word can be re-clicked.
 
 **Components (`src/components/`).**
 - `InputBoard` — owns local input/letter state, renders the input row, the 5 editable tiles, submission history, and the submit button. `applyWord()` is the shared path for both typing and click-to-fill.
 - `LetterPanel` — one tile; clicking cycles its color gray → yellow → green → gray.
-- `WordListArea` — re-filters `WordList` whenever `letterColorState` changes and renders candidates as clickable chips.
+- `WordListArea` — re-filters `WordList` whenever `letterColorAtom` changes and renders candidates as clickable chips.
 
 ## Gotchas
 

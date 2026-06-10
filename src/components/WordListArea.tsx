@@ -1,6 +1,7 @@
+import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { filterWordList } from "../lib";
-import { letterColorSelecters, selectedWordActions } from "../states";
+import { letterColorAtom, selectedWordAtom } from "../states";
 import { AnswerList } from "../util/AnswerList";
 import { WordList } from "../util/WordList";
 
@@ -8,8 +9,8 @@ import { WordList } from "../util/WordList";
 const answerSet = new Set(AnswerList);
 
 export const WordListArea = () => {
-  const letterColorState = letterColorSelecters.useLetterColor();
-  const setSelectedWord = selectedWordActions.useSetSelectedWord();
+  const letterColorState = useAtomValue(letterColorAtom);
+  const setSelectedWord = useSetAtom(selectedWordAtom);
   const [wordList, setwordList] = useState(WordList);
 
   useEffect(() => {
