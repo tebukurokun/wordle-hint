@@ -82,7 +82,18 @@ function App() {
             <WordListArea />
           </div>
         </div>
-        <div id="appFooter" className={"absolute bottom-0 right-0"}></div>
+        <footer
+          id="appFooter"
+          className="absolute bottom-0 left-0 right-0 px-5 pb-3 text-center text-[0.7rem] leading-relaxed text-slate-500"
+        >
+          <p>
+            Wordle Hint is an unofficial fan-made tool, not affiliated with or
+            endorsed by The New York Times. Provided as-is, with no guarantee of
+            accuracy. This site sets no cookies and adds no trackers; our host,
+            Cloudflare, automatically processes basic aggregate traffic data.
+          </p>
+          <p className="mt-1">© 2022 tebukuro</p>
+        </footer>
       </div>
     </div>
   );
