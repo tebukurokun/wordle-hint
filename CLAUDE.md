@@ -46,4 +46,4 @@ A single-page Wordle hint tool: Vite + React 18 + TypeScript, state via Jotai, s
 ## CI / Deploy
 
 - `.github/workflows/biome.yml` — runs `biome ci .` on push to `master` and on PRs.
-- `.github/workflows/gh-pages.yml` — on push to `master`, builds and deploys `dist/` to GitHub Pages.
+- **Deploy: Cloudflare Pages** via its Git integration — Cloudflare watches `master`, runs `npm run build`, and serves `dist/` at https://wordle-hint.tebukuro.me/. There is no deploy workflow in this repo and no `wrangler.*` config; it's all configured in the Cloudflare dashboard. (The old `gh-pages.yml` GitHub Pages workflow was removed.)
