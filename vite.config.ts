@@ -1,4 +1,4 @@
-import reactRefresh from "@vitejs/plugin-react-refresh";
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
@@ -11,7 +11,7 @@ export default defineConfig({
       },
     ],
   },
-  plugins: [reactRefresh()],
+  plugins: [react()],
   server: {
     hmr: {
       // port: 443,
@@ -20,8 +20,5 @@ export default defineConfig({
   base: "./",
   define: {
     "process.env": {},
-  },
-  esbuild: {
-    jsxInject: "import React from 'react';",
   },
 });

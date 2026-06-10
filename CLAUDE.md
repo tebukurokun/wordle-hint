@@ -41,7 +41,7 @@ A single-page Wordle hint tool: Vite + React 18 + TypeScript, state via Recoil, 
 
 - **Tailwind v4.** Styling is `@import "tailwindcss";` in `src/index.css` (no `@tailwind` directives — those are removed in v4). The v4 spacing scale is extended, so classes like `min-h-50` that were no-ops in v3 now resolve to real values. Config is CSS-first; there is no active `tailwind.config.js` driving anything.
 - **No component library.** Blueprint was removed; build UI with plain elements + Tailwind. Icons are inline SVG.
-- `vite.config.ts` injects `import React` via `esbuild.jsxInject` and uses the legacy `@vitejs/plugin-react-refresh`; `tsconfig` also sets `jsx: "react-jsx"`.
+- `vite.config.ts` uses `@vitejs/plugin-react` with the automatic JSX runtime (matching `tsconfig`'s `jsx: "react-jsx"`), so source files don't import React. Type-only references like `React.ChangeEvent` resolve via the global `React` namespace from `@types/react`. (Vite 8 builds with oxc, not esbuild.)
 
 ## CI / Deploy
 
