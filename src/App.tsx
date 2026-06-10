@@ -67,11 +67,15 @@ function App() {
             </h3>
             <p className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400">
               <span className="flex items-center gap-1.5">
-                <span className="inline-block h-3 w-3 rounded-sm bg-emerald-200 ring-1 ring-emerald-400" />
+                <span className="font-bold uppercase tracking-wide text-slate-200">
+                  word
+                </span>
                 possible answer
               </span>
               <span className="flex items-center gap-1.5">
-                <span className="inline-block h-3 w-3 rounded-sm bg-slate-200" />
+                <span className="font-normal uppercase tracking-wide text-slate-400">
+                  word
+                </span>
                 valid guess
               </span>
             </p>

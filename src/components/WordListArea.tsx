@@ -48,11 +48,9 @@ export const WordListArea = () => {
                 title={
                   isAnswer ? "Possible answer" : "Valid guess (unlikely answer)"
                 }
-                className={
-                  isAnswer
-                    ? "cursor-pointer rounded-md bg-emerald-100 px-2 py-1.5 text-center text-lg font-semibold uppercase tracking-wide text-emerald-900 ring-1 ring-emerald-400 hover:bg-emerald-200 active:bg-emerald-300"
-                    : "cursor-pointer rounded-md bg-slate-100 px-2 py-1.5 text-center text-lg font-medium uppercase tracking-wide text-slate-500 hover:bg-slate-200 active:bg-slate-300"
-                }
+                className={`cursor-pointer rounded-md bg-slate-100 px-2 py-1.5 text-center text-lg uppercase tracking-wide text-slate-700 hover:bg-slate-200 active:bg-slate-300 ${
+                  isAnswer ? "font-bold" : "font-normal"
+                }`}
               >
                 {word}
               </button>
