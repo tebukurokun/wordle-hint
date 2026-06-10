@@ -1,6 +1,10 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
-import { letterColorAtom, selectedWordAtom } from "../states";
+import {
+  type LetterColorState,
+  letterColorAtom,
+  selectedWordAtom,
+} from "../states";
 import { LetterPanel } from "./LetterPanel";
 
 interface LetterState {
@@ -9,6 +13,51 @@ interface LetterState {
   isGreen: boolean;
 }
 
+// The accumulated constraints are fully derived from the submission history,
+// so we rebuild them from scratch whenever the history changes (submit / undo).
+const computeColorState = (history: LetterState[][]): LetterColorState => {
+  const next: LetterColorState = {
+    grayLetters: [],
+    yellowLetters: [],
+    greenLetters: [],
+  };
+  for (const states of history) {
+    states.forEach((s, i) => {
+      if (s.isGreen) {
+        next.greenLetters.push({ letter: s.letter, index: i });
+      } else if (s.isYellow) {
+        next.yellowLetters.push({ letter: s.letter, index: i });
+      } else {
+        next.grayLetters.push(s.letter);
+      }
+    });
+  }
+  return next;
+};
+
+const emptyLetterStates = (): LetterState[] =>
+  Array.from({ length: 5 }, () => ({
+    letter: "",
+    isYellow: false,
+    isGreen: false,
+  }));
+
+// Pre-mark a letter green when a prior submission already locked that exact
+// letter at that exact index. Green is the only constraint safe to auto-apply:
+// it is guaranteed correct. Yellow is not (the letter could turn out green at
+// the new position), so we never auto-apply it.
+const buildLetterStates = (
+  word: string,
+  greens: LetterColorState["greenLetters"],
+): LetterState[] =>
+  [...word].map((letter, i) => ({
+    letter,
+    isYellow: false,
+    isGreen: greens.some(
+      (g) => g.index === i && g.letter.toUpperCase() === letter,
+    ),
+  }));
+
 export function InputBoard() {
   const letterColorState = useAtomValue(letterColorAtom);
   const setLetterColorState = useSetAtom(letterColorAtom);
@@ -16,13 +65,8 @@ export function InputBoard() {
   const setSelectedWord = useSetAtom(selectedWordAtom);
 
   const [inputValue, setInputValue] = useState("");
-  const [letterStates, setLetterStates] = useState<LetterState[]>([
-    { letter: "", isYellow: false, isGreen: false },
-    { letter: "", isYellow: false, isGreen: false },
-    { letter: "", isYellow: false, isGreen: false },
-    { letter: "", isYellow: false, isGreen: false },
-    { letter: "", isYellow: false, isGreen: false },
-  ]);
+  const [letterStates, setLetterStates] =
+    useState<LetterState[]>(emptyLetterStates);
 
   const [submittedLetterStates, setSubmittedLetterStates] = useState<
     LetterState[][]
@@ -42,13 +86,7 @@ export function InputBoard() {
     setInputValue(word);
 
     if (word.length === 5 && word.match(/^[A-Za-z]{5}$/)) {
-      setLetterStates([
-        { letter: word[0], isYellow: false, isGreen: false },
-        { letter: word[1], isYellow: false, isGreen: false },
-        { letter: word[2], isYellow: false, isGreen: false },
-        { letter: word[3], isYellow: false, isGreen: false },
-        { letter: word[4], isYellow: false, isGreen: false },
-      ]);
+      setLetterStates(buildLetterStates(word, letterColorState.greenLetters));
       setIsInputValid(true);
     } else {
       setIsInputValid(false);
@@ -92,45 +130,33 @@ export function InputBoard() {
     if (!isInputValid) {
       return;
     }
-    // update submittedLetterStates
-    const newSubmittedLetterStates = [...submittedLetterStates];
-    newSubmittedLetterStates.push(letterStates);
+    // append the word to history and rebuild the accumulated constraints
+    const newSubmittedLetterStates = [...submittedLetterStates, letterStates];
     setSubmittedLetterStates(newSubmittedLetterStates);
+    setLetterColorState(computeColorState(newSubmittedLetterStates));
 
-    // push to state
-    const newLetterColorState = {
-      grayLetters: [...letterColorState.grayLetters],
-      yellowLetters: [...letterColorState.yellowLetters],
-      greenLetters: [...letterColorState.greenLetters],
-    };
-    letterStates.forEach((s, i) => {
-      if (s.isGreen) {
-        newLetterColorState.greenLetters.push({
-          letter: s.letter,
-          index: i,
-        });
-      } else if (s.isYellow) {
-        newLetterColorState.yellowLetters.push({
-          letter: s.letter,
-          index: i,
-        });
-      } else {
-        newLetterColorState.grayLetters.push(s.letter);
-      }
-    });
-    setLetterColorState(newLetterColorState);
-
-    // reset letterStates
-    setLetterStates([
-      { letter: "", isYellow: false, isGreen: false },
-      { letter: "", isYellow: false, isGreen: false },
-      { letter: "", isYellow: false, isGreen: false },
-      { letter: "", isYellow: false, isGreen: false },
-      { letter: "", isYellow: false, isGreen: false },
-    ]);
-
+    // reset the editable row
+    setLetterStates(emptyLetterStates());
     setInputValue("");
     setIsInputValid(false);
+  };
+
+  const canUndo = submittedLetterStates.length > 1;
+
+  // Remove the most recent submission and load it back into the editable row
+  // so a mis-marked word can be fixed and re-submitted.
+  const undoLast = () => {
+    if (!canUndo) {
+      return;
+    }
+    const removed = submittedLetterStates[submittedLetterStates.length - 1];
+    const newSubmittedLetterStates = submittedLetterStates.slice(0, -1);
+    setSubmittedLetterStates(newSubmittedLetterStates);
+    setLetterColorState(computeColorState(newSubmittedLetterStates));
+
+    setLetterStates(removed);
+    setInputValue(removed.map((s) => s.letter).join(""));
+    setIsInputValid(true);
   };
 
   return (
@@ -188,6 +214,31 @@ export function InputBoard() {
         </span>
       </div>
       <div className="mt-5 grid grid-cols-5 gap-2">
+        <button
+          type="button"
+          aria-label="undo last word"
+          disabled={!canUndo}
+          onClick={undoLast}
+          className="col-start-1 col-span-1 flex cursor-pointer items-center justify-center rounded-lg border border-slate-600 bg-slate-800 text-slate-300 transition-colors hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="h-5 w-5"
+            role="img"
+            aria-label="undo"
+          >
+            <title>undo</title>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+            />
+          </svg>
+        </button>
         <input
           ref={input}
           type="text"
