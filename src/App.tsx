@@ -34,7 +34,7 @@ function App() {
             </a>
           </p>
         </div>
-        <details className="mx-auto mt-3 max-w-md rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-2 text-left text-sm text-slate-300">
+        <details className="mx-auto mt-2 max-w-md rounded-lg border border-slate-700 bg-slate-800/50 px-4 py-2 text-left text-sm text-slate-300">
           <summary className="cursor-pointer font-medium text-slate-200">
             How to use
           </summary>
@@ -54,15 +54,15 @@ function App() {
             ARISE) make strong opening guesses.
           </p>
         </details>
-        <div className="grid grid-cols-1 mt-5">
-          <div className={"mb-5 container px-10"}>
+        <div className="grid grid-cols-1 gap-4 mt-4">
+          <div className={"container px-10"}>
             <InputBoard />
           </div>
-          <div className="mt-5 container px-5">
+          <div className="container px-5">
             <h3 className="mb-1 text-lg font-semibold text-white">
               word candidates
               <span className="ml-1 text-sm font-normal text-slate-400">
-                (sorted by recommendation)
+                (best first)
               </span>
             </h3>
             <p className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400">

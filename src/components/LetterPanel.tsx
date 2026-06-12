@@ -4,12 +4,14 @@ export function LetterPanel({
   index,
   isYellow,
   isGreen,
+  compact = false,
   handleLetterClick,
   children,
 }: {
   index: number;
   isYellow: boolean;
   isGreen: boolean;
+  compact?: boolean;
   handleLetterClick?: (letterIndex: number) => void;
   children: string;
 }) {
@@ -20,16 +22,22 @@ export function LetterPanel({
           "bg-neutral-800": !isYellow && !isGreen,
           "bg-amber-400": isYellow,
           "bg-emerald-600": isGreen,
+          "py-2 min-h-[3rem] cursor-pointer": !compact,
+          "py-1 min-h-[2.25rem]": compact,
         },
-        "py-2",
-        "min-h-[3rem]",
         "rounded-md",
         "transition-colors",
-        "cursor-pointer",
       )}
       onClick={() => handleLetterClick?.(index)}
     >
-      <p className={"text-2xl text-white text-center font-bold"}>{children}</p>
+      <p
+        className={classNames(
+          compact ? "text-xl" : "text-2xl",
+          "text-white text-center font-bold",
+        )}
+      >
+        {children}
+      </p>
     </div>
   );
 }

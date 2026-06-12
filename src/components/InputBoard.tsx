@@ -176,6 +176,7 @@ export function InputBoard() {
                     index={i}
                     isYellow={s.isYellow}
                     isGreen={s.isGreen}
+                    compact
                   >
                     {s.letter}
                   </LetterPanel>
@@ -199,7 +200,7 @@ export function InputBoard() {
           ))}
         </div>
       </div>
-      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-400">
+      <div className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-400">
         <span className="flex items-center gap-1.5">
           <span className="inline-block h-3 w-3 rounded-sm bg-neutral-800 ring-1 ring-slate-600" />
           not in word
@@ -213,7 +214,7 @@ export function InputBoard() {
           correct spot
         </span>
       </div>
-      <div className="mt-5 grid grid-cols-5 gap-2">
+      <div className="mt-3 grid grid-cols-5 gap-2">
         <button
           type="button"
           aria-label="undo last word"
