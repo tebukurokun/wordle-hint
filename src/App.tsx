@@ -9,8 +9,8 @@ function App() {
     console.info(`Wordle Hint v${version}`);
   }, []);
   return (
-    <div className="App bg-slate-900 text-white h-screen">
-      <div className={"p-5 max-w-screen-md mx-auto relative h-full"}>
+    <div className="App bg-slate-900 text-white min-h-screen">
+      <div className={"p-5 max-w-screen-md mx-auto flex min-h-screen flex-col"}>
         <h1 className="mb-1 text-3xl font-extrabold tracking-tight sm:text-4xl">
           <span
             className="cursor-pointer text-white"
@@ -84,7 +84,7 @@ function App() {
         </div>
         <footer
           id="appFooter"
-          className="absolute bottom-0 left-0 right-0 px-5 pb-3 text-center text-[0.7rem] leading-relaxed text-slate-500"
+          className="mt-auto px-5 pt-6 pb-3 text-center text-[0.7rem] leading-relaxed text-slate-500"
         >
           <p>
             Wordle Hint is an unofficial fan-made tool, not affiliated with or
