@@ -35,6 +35,45 @@ const computeColorState = (history: LetterState[][]): LetterColorState => {
   return next;
 };
 
+// Wiktionary link shown beside a word row. Positioned by the caller in the
+// board's px-10 gutter so tile widths are unaffected.
+const DictionaryLink = ({
+  word,
+  className,
+}: {
+  word: string;
+  className: string;
+}) => (
+  <a
+    href={`https://en.wiktionary.org/wiki/${word.toLowerCase()}`}
+    target="_blank"
+    rel="noreferrer"
+    aria-label={`look up ${word} in dictionary`}
+    title={`Look up ${word} in Wiktionary`}
+    className={`${className} rounded-md p-1.5 text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-200`}
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={2}
+      stroke="currentColor"
+      className="h-5 w-5"
+      role="img"
+      aria-label="dictionary"
+    >
+      <title>dictionary</title>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"
+      />
+      <path strokeLinecap="round" strokeLinejoin="round" d="m8 13 4-7 4 7" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9.1 11h5.7" />
+    </svg>
+  </a>
+);
+
 const emptyLetterStates = (): LetterState[] =>
   Array.from({ length: 5 }, () => ({
     letter: "",
@@ -166,21 +205,29 @@ export function InputBoard() {
           {submittedLetterStates.map((states, index) => {
             return (
               <div
-                className="my-1 grid grid-cols-5 gap-1"
+                className="relative my-1"
                 // biome-ignore lint/suspicious/noArrayIndexKey: append-only submission history, never reordered
                 key={`index-${index}`}
               >
-                {states.map((s, i) => (
-                  <LetterPanel
-                    key={`${index.toString()}-${i.toString()}`}
-                    index={i}
-                    isYellow={s.isYellow}
-                    isGreen={s.isGreen}
-                    compact
-                  >
-                    {s.letter}
-                  </LetterPanel>
-                ))}
+                <div className="grid grid-cols-5 gap-1">
+                  {states.map((s, i) => (
+                    <LetterPanel
+                      key={`${index.toString()}-${i.toString()}`}
+                      index={i}
+                      isYellow={s.isYellow}
+                      isGreen={s.isGreen}
+                      compact
+                    >
+                      {s.letter}
+                    </LetterPanel>
+                  ))}
+                </div>
+                {states.length === 5 && (
+                  <DictionaryLink
+                    word={states.map((s) => s.letter).join("")}
+                    className="absolute -right-9 top-1/2 -translate-y-1/2"
+                  />
+                )}
               </div>
             );
           })}
@@ -200,44 +247,11 @@ export function InputBoard() {
               </LetterPanel>
             ))}
           </div>
-          {/* sits in the board's px-10 gutter so tile widths are unaffected */}
           {isInputValid && (
-            <a
-              href={`https://en.wiktionary.org/wiki/${inputValue.toLowerCase()}`}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`look up ${inputValue} in dictionary`}
-              title={`Look up ${inputValue} in Wiktionary`}
-              className="absolute -right-9 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-200"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="h-5 w-5"
-                role="img"
-                aria-label="dictionary"
-              >
-                <title>dictionary</title>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m8 13 4-7 4 7"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9.1 11h5.7"
-                />
-              </svg>
-            </a>
+            <DictionaryLink
+              word={inputValue}
+              className="absolute -right-9 top-1/2 -translate-y-1/2"
+            />
           )}
         </div>
       </div>

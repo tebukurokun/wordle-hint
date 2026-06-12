@@ -33,7 +33,7 @@ A single-page Wordle hint tool: Vite + React 18 + TypeScript, state via Jotai, s
 - `selectedWordAtom` — bridges the two areas: clicking a candidate writes the word here; `InputBoard` watches it and fills the input, then resets it to `""` so the same word can be re-clicked.
 
 **Components (`src/components/`).**
-- `InputBoard` — owns local input/letter state, renders the input row, the 5 editable tiles, submission history, and the submit button. `applyWord()` is the shared path for both typing and click-to-fill. When the editable row holds a valid word, a Wiktionary link button appears beside it (absolutely positioned in the board's `px-10` gutter so tile widths never change).
+- `InputBoard` — owns local input/letter state, renders the input row, the 5 editable tiles, submission history, and the submit button. `applyWord()` is the shared path for both typing and click-to-fill. A Wiktionary link button (`DictionaryLink`) appears beside every submitted history row and beside the editable row while it holds a valid word (absolutely positioned in the board's `px-10` gutter so tile widths never change).
 - `LetterPanel` — one tile; clicking cycles its color gray → yellow → green → gray.
 - `WordListArea` — re-filters `WordList` whenever `letterColorAtom` changes and renders candidates as clickable chips.
 
