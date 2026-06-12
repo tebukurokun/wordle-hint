@@ -46,4 +46,7 @@ A single-page Wordle hint tool: Vite + React 18 + TypeScript, state via Jotai, s
 ## CI / Deploy
 
 - `.github/workflows/biome.yml` — runs `biome ci .` on push to `master` and on PRs.
-- **Deploy: Cloudflare Pages** via its Git integration — Cloudflare watches `master`, runs `npm run build`, and serves `dist/` at https://wordle-hint.tebukuro.me/. There is no deploy workflow in this repo and no `wrangler.*` config; it's all configured in the Cloudflare dashboard. (The old `gh-pages.yml` GitHub Pages workflow was removed.)
+- **Deploy: Cloudflare Pages** via its Git integration — Cloudflare watches `master`, runs `npm run build`, and serves `dist/` at https://wordle-hint.tebukuro.me/. There is no deploy workflow in this repo and no `wrangler.*` config; it's all configured in the Cloudflare dashboard. (The old `gh-pages.yml` GitHub Pages workflow was removed.) Pushing any branch triggers a preview build, so you can verify the build on e.g. `develop` before fast-forwarding `master`.
+- **Lockfile check before pushing dependency changes.** Cloudflare installs with `npm ci` under **npm 10.9.2**. A `package-lock.json` written by a newer local npm (11.x) omits `@emnapi/*` optional entries (oxc/rolldown WASM fallback) and the build fails with `EUSAGE: Missing: @emnapi/core@... from lock file` (happened 2026-06-10 and 2026-06-13). A passing local `npm ci` does **not** prove anything if your npm major differs. Whenever package.json/the lock changes:
+  1. regenerate the lock with Cloudflare's npm: `npx -y npm@10.9.2 install --package-lock-only`
+  2. verify: copy `package.json` + `package-lock.json` to a temp dir and run `npx -y npm@10.9.2 ci` there (don't run `npm ci` in the repo — it deletes `node_modules`).
