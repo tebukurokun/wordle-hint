@@ -185,19 +185,50 @@ export function InputBoard() {
             );
           })}
         </div>
-        <div className="grid grid-cols-5 gap-1 justify-center">
-          {letterStates.map((s, i) => (
-            <LetterPanel
-              // biome-ignore lint/suspicious/noArrayIndexKey: fixed 5-letter row, never reordered
-              key={i}
-              index={i}
-              isYellow={s.isYellow}
-              isGreen={s.isGreen}
-              handleLetterClick={handleLetterClick}
+        <div className="relative">
+          <div className="grid grid-cols-5 gap-1 justify-center">
+            {letterStates.map((s, i) => (
+              <LetterPanel
+                // biome-ignore lint/suspicious/noArrayIndexKey: fixed 5-letter row, never reordered
+                key={i}
+                index={i}
+                isYellow={s.isYellow}
+                isGreen={s.isGreen}
+                handleLetterClick={handleLetterClick}
+              >
+                {s.letter}
+              </LetterPanel>
+            ))}
+          </div>
+          {/* sits in the board's px-10 gutter so tile widths are unaffected */}
+          {isInputValid && (
+            <a
+              href={`https://en.wiktionary.org/wiki/${inputValue.toLowerCase()}`}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`look up ${inputValue} in dictionary`}
+              title={`Look up ${inputValue} in Wiktionary`}
+              className="absolute -right-9 top-1/2 -translate-y-1/2 rounded-md p-1.5 text-slate-400 transition-colors hover:bg-slate-800 hover:text-slate-200"
             >
-              {s.letter}
-            </LetterPanel>
-          ))}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="h-5 w-5"
+                role="img"
+                aria-label="dictionary"
+              >
+                <title>dictionary</title>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"
+                />
+              </svg>
+            </a>
+          )}
         </div>
       </div>
       <div className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-slate-400">
