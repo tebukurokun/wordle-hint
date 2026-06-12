@@ -37,6 +37,14 @@ A single-page Wordle hint tool: Vite + React 18 + TypeScript, state via Jotai, s
 - `LetterPanel` — one tile; clicking cycles its color gray → yellow → green → gray.
 - `WordListArea` — re-filters `WordList` whenever `letterColorAtom` changes and renders candidates as clickable chips.
 
+## PWA
+
+The app is an installable, offline-capable PWA:
+
+- `public/site.webmanifest` is the manifest **source of truth** (linked from `index.html` along with the icon set in `public/`). `vite-plugin-pwa` is configured with `manifest: false` so it does not generate a second manifest.
+- `vite-plugin-pwa` (in `vite.config.ts`) generates `sw.js` at build time (Workbox `generateSW`) and injects `registerSW.js` into the built `index.html`. `registerType: "autoUpdate"` — new deploys take over silently, no update prompt. All build assets incl. fonts/icons are precached (globPatterns), so the app works fully offline after first load; there are no runtime network requests.
+- Nothing PWA-related runs under `npm run dev` (build-time only). Verify with `npm run build && npm run preview`, then check `/sw.js` and Application → Service Workers in devtools.
+
 ## Gotchas
 
 - **Tailwind v4.** Styling is `@import "tailwindcss";` in `src/index.css` (no `@tailwind` directives — those are removed in v4). The v4 spacing scale is extended, so classes like `min-h-50` that were no-ops in v3 now resolve to real values. Config is CSS-first; there is no active `tailwind.config.js` driving anything.
