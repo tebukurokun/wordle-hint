@@ -47,7 +47,8 @@ The app is an installable, offline-capable PWA:
 
 ## Gotchas
 
-- **Tailwind v4.** Styling is `@import "tailwindcss";` in `src/index.css` (no `@tailwind` directives — those are removed in v4). The v4 spacing scale is extended, so classes like `min-h-50` that were no-ops in v3 now resolve to real values. Config is CSS-first; there is no active `tailwind.config.js` driving anything.
+- **The package is ESM** (`"type": "module"` in `package.json`). Every `.js` file in the repo — including `postcss.config.js` — must use `export default`, not `module.exports`; a stray CJS config file will throw at build time. Rename to `.cjs` if you ever genuinely need CommonJS. (Set on 2026-08-06 to clear a Vite 8.2 warning: `vite.config.ts` was being loaded as CommonJS, which the upcoming `configLoader: 'native'` default won't support.)
+- **Tailwind v4.** Styling is `@import "tailwindcss";` in `src/index.css` (no `@tailwind` directives — those are removed in v4). The v4 spacing scale is extended, so classes like `min-h-50` that were no-ops in v3 now resolve to real values. Config is CSS-first; `tailwind.config.js` was deleted (2026-08-06) because v4 only reads it via an explicit `@config` directive, which this project doesn't use — removing it left the emitted CSS byte-identical. `postcss.config.js` (just `@tailwindcss/postcss`) is still required.
 - **No component library.** Blueprint was removed; build UI with plain elements + Tailwind. Icons are inline SVG.
 - `vite.config.ts` uses `@vitejs/plugin-react` with the automatic JSX runtime (matching `tsconfig`'s `jsx: "react-jsx"`), so source files don't import React. Type-only references like `React.ChangeEvent` resolve via the global `React` namespace from `@types/react`. (Vite 8 builds with oxc, not esbuild.)
 

@@ -2,6 +2,7 @@
   "name": "wordle-hint",
   "version": "1.0.1",
   "homepage": "./",
+  "type": "module",
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
